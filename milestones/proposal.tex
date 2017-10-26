@@ -18,24 +18,35 @@ Automatic fingering arrangement (AFA) aims at finding the optimal fingering path
 For a whole automatic music transcription process, AFA is the very crucial final step, especially for instruments that use tablature as their musical notation such as guitar. It is also helpful for beginners to learn how to perform a new song. 
 
 Generally speaking, manually arranging fingerings is time-consuming and may be difficult for beginners. 
-However, fingering of most instruments follows some rules and strategies, so it is possible to make use of these rules and consider AFA as a search problem. Burlet \textit{et al.} applied A* algorithm to their guitar tablature transcription framework, and Matteo \textit{et al.} proposed a tabu search algorithm on piano fingering. 
-Some other previous work includes using recurrent neural networks to predict the fingering. 
-Nevertheless, search problems are based on already known rules, and there might be some more latent and potential rules that we don't know. RNNs require a lot of training data, which are very hard to collect. 
+However, fingering of most instruments follows some rules and strategies, so it is possible to make use of these rules and consider AFA as a search problem. Burlet \textit{et al.}\cite{burlet2013robotaba} applied A* algorithm to their guitar tablature transcription framework, and Balliauw \textit{et al.}\cite{balliauw2015generating} proposed a tabu search algorithm on piano fingering. Hori \textit{et al.}\cite{hori2013input} published the method of using HMM given manually adjusted parameters to generate guitar tablatures and fingering decisions.
+Other previous work includes using recurrent neural networks to predict the tablature\cite{mistler2017thesis}. 
+Nevertheless, search problems are based on already known rules, and there might be some more latent and potential rules that we don't know. RNNs require a lot of training data, which are very hard to collect. Moreover, most of the guitar related work only generates guitar tablature without the fingering decision.
 
-Therefore, in this project, we try to solve both problems using reinforcement learning, especially Deep Q-Learning. By applying the most basic rules in fingering, such as the bio-mechanical constraints on human hands, we hope to find a better solution and some potential strategies on this problem without learning from a large dataset. We will test our model on guitar and piano fingering arrangement.
+Therefore, in this project, we try to solve these problems using reinforcement learning, especially deep Q-network. By introducing the most basic rules in fingering to this task, such as the bio-mechanical constraints on human hands, we hope that the model will find a better solution and some potential strategies on AFA without learning from a large dataset. We will test our model on guitar and piano fingering arrangement and compare it with some approaches mentioned above.
 
 \section*{System}
-We will apply deep Q-learning to this problem. The input of our system is \textbf{a sequence of symbolic music notes} with each note including the following information:
-\begin{enumerate}
+The input of our system is \textbf{a sequence of symbolic music notes} with each note including the following information:
+\begin{itemize}
+	\itemsep -0.5em
     \item Pitch (midi note number)
     \item Onset (s)
     \item Duration (s)
-\end{enumerate}
-The output is \textbf{the position on instrument and the finger you use to play each input note}. \\
-Here is a concrete example of inputs and outputs on guitar problem:\\
-Given a sequence of notes \\
-Note(pitch: 48, onset: 0.0, duration: 0.5) , Note(pitch: 52, onset: 0.6, duration: 0.5) , Note(pitch: 55, onset: 1.2, duration: 1.0), \\
-the output should be (string: 5, fret: 3, finger: 4) , (string: 4, fret: 2, finger: 3) , (string: 3, fret: 0, finger: 0).
+\end{itemize}
+The output is \textbf{the position on instrument and the finger you use to play each input note}. Here is a concrete example of inputs and outputs on guitar problem. Given a sequence of notes \\
+\texttt{[Note(pitch: 48, onset: 0.0, duration: 0.5), \\Note(pitch: 52, onset: 0.6, duration: 0.5), \\Note(pitch: 55, onset: 1.2, duration: 1.0)]}, \\
+the output should be \\ 
+\texttt{[(string: 5, fret: 3, finger: 4), \\(string: 4, fret: 2, finger: 3), \\(string: 3, fret: 0, finger: 0)]} \\
+, where \texttt{string} (1 to 6) is the string number on guitar, \texttt{fret} (0 to 22 for electric guitar) is the fret number, and \texttt{finger} (0\~5) denotes which finger you should use to press the string (0 means no need to press the string). \\
+
+
+We will apply deep Q-network to this problem, and the basic infrastructure will be created using PyTorch\footnote{PyTorch: https://github.com/pytorch/pytorch}. The possible features for DQN include \textbf{pitch, next pitch, duration, duration between this onset and the next onset, string, fret, finger}, etc.
+
+\section*{Evaluation}
+We will test the model with small datasets, which contain about 100 songs with ground-truth labels, on both guitar and piano. The performance will be evaluated by its accuracy, precision, recall rate, and F-1 score. Then, we will compare our results to an A* algorithm system. 
+
+
+\bibliographystyle{unsrt}
+\bibliography{InstrFingeringRefs}
 
 
 \end{document}
