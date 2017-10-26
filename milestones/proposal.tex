@@ -1,0 +1,42 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,enumitem,amsmath,amssymb,graphicx}
+
+\begin{document}
+
+\begin{center}
+{\Large CS221 Fall 2017 Final Project Proposal: \\}
+{\Large \textbf{Automatic Music Instrument Fingering Arrangement using Reinforcement Learning}}
+
+\begin{tabular}{rll}
+SUNet ID: & 06117479 &  \\
+Name: & Ting-Wei Su & Brandon Wu \\
+\end{tabular}
+\end{center}
+
+\section*{Introduction}
+
+Automatic fingering arrangement (AFA) aims at finding the optimal fingering path for a song or a sequence of symbolic music notes (such as MIDI). 
+For a whole automatic music transcription process, AFA is the very crucial final step, especially for instruments that use tablature as their musical notation such as guitar. It is also helpful for beginners to learn how to perform a new song. 
+
+Generally speaking, manually arranging fingerings is time-consuming and may be difficult for beginners. 
+However, fingering of most instruments follows some rules and strategies, so it is possible to make use of these rules and consider AFA as a search problem. Burlet \textit{et al.} applied A* algorithm to their guitar tablature transcription framework, and Matteo \textit{et al.} proposed a tabu search algorithm on piano fingering. 
+Some other previous work includes using recurrent neural networks to predict the fingering. 
+Nevertheless, search problems are based on already known rules, and there might be some more latent and potential rules that we don't know. RNNs require a lot of training data, which are very hard to collect. 
+
+Therefore, in this project, we try to solve both problems using reinforcement learning, especially Deep Q-Learning. By applying the most basic rules in fingering, such as the bio-mechanical constraints on human hands, we hope to find a better solution and some potential strategies on this problem without learning from a large dataset. We will test our model on guitar and piano fingering arrangement.
+
+\section*{System}
+We will apply deep Q-learning to this problem. The input of our system is \textbf{a sequence of symbolic music notes} with each note including the following information:
+\begin{enumerate}
+    \item Pitch (midi note number)
+    \item Onset (s)
+    \item Duration (s)
+\end{enumerate}
+The output is \textbf{the position on instrument of each input note}. For example, which key on piano or which string and which fret on guitar.\\
+Here is a concrete example of inputs and outputs on guitar problem:\\
+Given a sequence of notes \\
+Note(pitch: 48, onset: 0.0, duration: 0.5) , Note(pitch: 52, onset: 0.6, duration: 0.5) , Note(pitch: 55, onset: 1.2, duration: 1.0), \\
+the output should be (string: 5, fret: 3) , (string: 4, fret: 2) , (string: 3, fret: 0).
+
+
+\end{document}
