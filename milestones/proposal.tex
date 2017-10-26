@@ -22,7 +22,7 @@ However, fingering of most instruments follows some rules and strategies, so it 
 Other previous work includes using recurrent neural networks to predict the tablature\cite{mistler2017thesis}. 
 Nevertheless, search problems are based on already known rules, and there might be some more latent and potential rules that we don't know. RNNs require a lot of training data, which are very hard to collect. Moreover, most of the guitar related work only generates guitar tablature without the fingering decision.
 
-Therefore, in this project, we try to solve these problems using reinforcement learning, especially deep Q-network. By introducing the most basic rules in fingering to this task, such as the bio-mechanical constraints on human hands, we hope that the model will find a better solution and some potential strategies on AFA without learning from a large dataset. We will test our model on guitar and piano fingering arrangement and compare it with some approaches mentioned above.
+Therefore, in this project, we try to solve these problems using reinforcement learning, especially deep Q-network. By introducing the most basic rules in fingering to this task, such as the bio-mechanical constraints on human hands, we hope that the model will find a better solution and some potential strategies on AFA without learning from a large dataset. We will test our model on guitar and piano fingering arrangement and compare it with some approaches mentioned above. Hopefully we can also build a simple program that shows the arragement result along with the music sheet or tablature.
 
 \section*{System}
 The input of our system is \textbf{a sequence of symbolic music notes} with each note including the following information:
