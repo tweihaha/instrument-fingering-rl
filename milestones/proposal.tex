@@ -31,11 +31,11 @@ We will apply deep Q-learning to this problem. The input of our system is \textb
     \item Onset (s)
     \item Duration (s)
 \end{enumerate}
-The output is \textbf{the position on instrument of each input note}. For example, which key on piano or which string and which fret on guitar.\\
+The output is \textbf{the position on instrument and the finger you use to play each input note}. \\
 Here is a concrete example of inputs and outputs on guitar problem:\\
 Given a sequence of notes \\
 Note(pitch: 48, onset: 0.0, duration: 0.5) , Note(pitch: 52, onset: 0.6, duration: 0.5) , Note(pitch: 55, onset: 1.2, duration: 1.0), \\
-the output should be (string: 5, fret: 3) , (string: 4, fret: 2) , (string: 3, fret: 0).
+the output should be (string: 5, fret: 3, finger: 4) , (string: 4, fret: 2, finger: 3) , (string: 3, fret: 0, finger: 0).
 
 
 \end{document}
