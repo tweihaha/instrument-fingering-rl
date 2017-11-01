@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
-\usepackage{fullpage,enumitem,amsmath,amssymb,graphicx}
+\usepackage{fullpage,sectsty,enumitem,amsmath,amssymb,graphicx}
+\sectionfont{\fontsize{15}{12}\selectfont}
 
 \begin{document}
 
@@ -25,19 +26,17 @@ Nevertheless, search problems are based on already known rules, and there might 
 Therefore, in this project, we try to solve these problems using reinforcement learning, especially deep Q-network. By introducing the most basic rules in fingering to this task, such as the bio-mechanical constraints on human hands, we hope that the model will find a better solution and some potential strategies on AFA without learning from a large dataset. We will test our model on guitar and piano fingering arrangement and compare it with some approaches mentioned above. Hopefully we can also build a simple program that shows the arragement result along with the music sheet or tablature.
 
 \section*{System}
-The input of our system is \textbf{a sequence of symbolic music notes} with each note including the following information:
-\begin{itemize}
-	\itemsep -0.5em
-    \item Pitch (midi note number)
-    \item Onset (s)
-    \item Duration (s)
-\end{itemize}
+The input of our system is \textbf{a sequence of symbolic music notes} with each note including the \textbf{pitch, onset, and duration}. \\
 The output is \textbf{the position on instrument and the finger you use to play each input note}. Here is a concrete example of inputs and outputs on guitar problem. Given a sequence of notes \\
 \texttt{[Note(pitch: 48, onset: 0.0, duration: 0.5), \\Note(pitch: 52, onset: 0.6, duration: 0.5), \\Note(pitch: 55, onset: 1.2, duration: 1.0)]}, \\
 the output should be \\ 
 \texttt{[(string: 5, fret: 3, finger: 4), \\(string: 4, fret: 2, finger: 3), \\(string: 3, fret: 0, finger: 0)]} \\
-, where \texttt{string} (1 to 6) is the string number on guitar, \texttt{fret} (0 to 22 for electric guitar) is the fret number, and \texttt{finger} (0\~5) denotes which finger you should use to press the string (0 means no need to press the string). \\
-
+, where \texttt{string} (1 to 6) is the string number on guitar, \texttt{fret} (0 to 22 for electric guitar) is the fret number, and \texttt{finger} (0 to 5) denotes which finger you should use to press the string (0 means no need to press the string). \\
+An example of inputs and outputs of piano problems would be input: \\
+\texttt{[Note(pitch: 72, onset: 0.0, duration: 0.5), \\Note(pitch: 48, onset: 0.0, duration: 0.5), \\Note(pitch: 79, onset: 1.0, duration: 0.5), \\Note(pitch: 64, onset: 1.0, duration: 0.5) ]}, \\
+and output can be \\
+\texttt{[(hand: 2, finger: 1), (hand: 1, finger: 5), \\(hand: 2, finger: 4), (hand: 1, finger: 2)]}, \\
+where \texttt{hand} (1 or 2) is the left or the right hand, {finger} (1 to 5) corresponds to the pinky finger to the thumb.
 
 We will apply deep Q-network to this problem, and the basic infrastructure will be created using PyTorch\footnote{PyTorch: https://github.com/pytorch/pytorch}. The possible features for DQN include \textbf{pitch, next pitch, duration, duration between this onset and the next onset, string, fret, finger}, etc.
 
